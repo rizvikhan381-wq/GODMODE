@@ -1,21 +1,27 @@
-// RateLimit bucket interface (tumar existing structure anujayi)
-interface RateBucket {
-  minuteRequests: number[]
-  dayRequests: number[]
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
-
-const MINUTE_MS = 60 * 1000
-const DAY_MS = 24 * 60 * 60 * 1000
-
-// RateLimit buckets Map
-const buckets = new Map<string, RateBucket>()
-
-// Cleanup interval (Map iteration fixed using .forEach)
-setInterval(() => {
-  const now = Date.now()
-  buckets.forEach((bucket, key) => {
-    bucket.minuteRequests = bucket.minuteRequests.filter(t => now - t < MINUTE_MS)
-    bucket.dayRequests = bucket.dayRequests.filter(t => now - t < DAY_MS)
-  })
-}, 60000) // Every 1 minute run hobe
-
