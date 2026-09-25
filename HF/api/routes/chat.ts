@@ -103,7 +103,7 @@ chatRoutes.post('/completions', async (req, res) => {
       .map(m => ({ role: m.role, content: m.content }))
 
     // ── Step 1: AutoTune ──────────────────────────────────────────────
-    let autotuneResult = null
+    let autotuneResult: any = null
     let finalParams: Record<string, number | undefined> = {
       temperature: temperature ?? 0.7,
       top_p,
@@ -143,7 +143,7 @@ chatRoutes.post('/completions', async (req, res) => {
     }
 
     // ── Step 2: Parseltongue ──────────────────────────────────────────
-    let parseltongueResult = null
+    let parseltongueResult: any = null
     let processedMessages = allMessages
 
     if (parseltongue) {
@@ -185,7 +185,7 @@ chatRoutes.post('/completions', async (req, res) => {
     })
 
     // ── Step 4: STM transforms ───────────────────────────────────────
-    let stmResult = null
+    let stmResult: any = null
     let finalResponse = response
 
     if (stm_modules && Array.isArray(stm_modules) && stm_modules.length > 0) {
